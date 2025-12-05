@@ -13,5 +13,7 @@ public interface UserRepository {
             @Param("name") String name,
             @Param("email") String email);
 
+    public int countByLoginId(@Param("loginId") String loginId);
+
 
 }

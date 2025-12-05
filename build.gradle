@@ -40,6 +40,9 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+
 }
 
 tasks.named('test') {

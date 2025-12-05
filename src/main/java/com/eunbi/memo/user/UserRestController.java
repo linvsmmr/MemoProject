@@ -1,9 +1,6 @@
 package com.eunbi.memo.user;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +33,24 @@ public class UserRestController {
 
         return resultMap;
 
-
-
-
     }
+
+
+    @GetMapping("/duplicate-id")
+    public Map<String, Boolean> isDuplicateId(@RequestParam String loginId) {
+
+        Map<String, Boolean> resultMap = new HashMap<>();
+
+        if (userService.isDuplicateId(loginId)) {
+            resultMap.put("isDuplicate", true);
+        } else {
+            resultMap.put("isDuplicate", false);
+        }
+        return resultMap;
+    }
+
+
+
+
+
 }

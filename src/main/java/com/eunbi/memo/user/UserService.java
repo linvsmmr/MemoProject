@@ -1,6 +1,7 @@
 package com.eunbi.memo.user;
 
 
+import com.eunbi.memo.SHA25HashingEncoder;
 import com.eunbi.memo.common.MD5MashingEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,8 @@ public class UserService {
             String email
     ) {
 
-        String encodedPassword = MD5MashingEncoder.encode(password);
+//        String encodedPassword = MD5MashingEncoder.encode(password);
+        String encodedPassword = SHA25HashingEncoder.encode(password);
         int count = userRepository.insertUser(loginId, password, name, email);
 
         if (count == 1) {
@@ -35,4 +37,17 @@ public class UserService {
         }
 
     }
+
+    public boolean isDuplicateId(String loginId) {
+        int count = userRepository.countByLoginId(loginId);
+
+        if (count == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+
 }
