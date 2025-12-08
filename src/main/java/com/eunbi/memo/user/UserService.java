@@ -1,9 +1,7 @@
 package com.eunbi.memo.user;
 
 
-import com.eunbi.memo.SHA25HashingEncoder;
 import com.eunbi.memo.common.MD5MashingEncoder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,9 +24,9 @@ public class UserService {
             String email
     ) {
 
-//        String encodedPassword = MD5MashingEncoder.encode(password);
-        String encodedPassword = SHA25HashingEncoder.encode(password);
-        int count = userRepository.insertUser(loginId, password, name, email);
+        String encodedPassword = MD5MashingEncoder.encode(password);
+//        String encodedPassword = SHA25HashingEncoder.encode(password);
+        int count = userRepository.insertUser(loginId, encodedPassword, name, email);
 
         if (count == 1) {
             return true;
@@ -46,6 +44,12 @@ public class UserService {
         } else {
             return true;
         }
+    }
+
+    public User getUser(String loginId, String password) {
+        String encodedPassword = MD5MashingEncoder.encode(password);
+        User user = userRepository.selectUser(loginId, encodedPassword);
+        return user;
     }
 
 

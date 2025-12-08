@@ -1,4 +1,4 @@
-package com.eunbi.memo;
+package com.eunbi.memo.common;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

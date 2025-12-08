@@ -13,6 +13,11 @@ header {
     background-color: #dddddd;
 }
 
+.contents > .contents-box {
+    width: 800px;
+    height: 500px;
+}
+
 footer {
     height: 50px;
     background-color: #dddddd;

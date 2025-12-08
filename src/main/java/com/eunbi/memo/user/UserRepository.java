@@ -15,5 +15,10 @@ public interface UserRepository {
 
     public int countByLoginId(@Param("loginId") String loginId);
 
+    public User selectUser(
+            @Param("loginId") String loginId,
+            @Param("password") String password
+    );
+
 
 }

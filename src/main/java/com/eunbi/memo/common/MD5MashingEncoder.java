@@ -8,18 +8,21 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5MashingEncoder {
 
-    // MD5를 통한 해싱 과정 수행
+    // md5 를 통한 해싱
     public static String encode(String message) {
+
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("md5");
+
             byte[] bytes = message.getBytes();
+
             messageDigest.update(bytes);
+
             byte[] digest = messageDigest.digest();
 
-
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < digest.length; i++) {
-                Integer.toHexString(digest[i] & 0xff);
+            for(int i = 0; i < digest.length; i++) {
+                sb.append(Integer.toHexString(digest[i] & 0xff));
             }
 
             return sb.toString();
@@ -27,6 +30,5 @@ public class MD5MashingEncoder {
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
-
     }
 }
