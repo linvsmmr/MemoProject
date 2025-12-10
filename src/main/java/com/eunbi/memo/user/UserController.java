@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/memo")
+@RequestMapping("/user")
 @Controller
 public class UserController {
 
@@ -22,10 +22,6 @@ public class UserController {
         return "user/login";
     }
 
-    @GetMapping("/list")
-    public String list() {
-        return "user/list";
-    }
     
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
@@ -36,7 +32,7 @@ public class UserController {
 
         session.invalidate();
 
-        return "redirect:/memo/login";
+        return "redirect:/user/login";
 
 
     }
