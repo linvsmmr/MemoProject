@@ -1,8 +1,10 @@
 package com.eunbi.memo.memo;
 
+import com.eunbi.memo.common.FileManager;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -20,9 +22,16 @@ public class MemoService {
     public boolean createMemo(
             long userId,
             String title,
-            String contents
+            String contents,
+            MultipartFile imageFile
     ) {
-        Memo memo = Memo.builder().userId(userId).title(title).contents(contents).build();
+
+        String imagePath = FileManager.saveFile(userId, imageFile);
+
+
+
+
+        Memo memo = Memo.builder().userId(userId).title(title).contents(contents).imagePath(imagePath).build();
 
         try {
             memoRepository.save(memo);
