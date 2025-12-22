@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/default}">
 
 <section layout:fragment="contents" class="contents d-flex justify-content-center">
-    <div class="contents-box">
+    <div class="contents-box" th:data-id="${memo.id}" id="memoContents">
         <h2 class="ml-3">Memo 상세</h2>
 
         <input type="text" class="form-control mt-4" th:value="${memo.title}" placeholder="샘플 메모 제목입니다" id="titleInput">
@@ -12,14 +12,47 @@
 
         <img th:src="${memo.imagePath}">
         <div class="d-flex justify-content-between mt-4 mb-4">
-            <button type="button" class="btn btn-danger">삭제</button>
+            <button type="button" class="btn btn-danger" id="removeBtn">삭제</button>
 
             <div>
                 <a href="/memo/list" class="btn btn-secondary">목록으로</a>
                 <button type="button" class="btn btn-secondary" id="saveBtn">수정</button>
             </div>
         </div>
-
-
     </div>
 </section>
+
+<script layout:fragment="script">
+
+    $("#removeBtn").on("click", function () {
+        let id = $("#memoContents").data("id");
+
+    })
+
+    $("#saveBtn").on("click", function () {
+        let title = $("#titleInput").val();
+        let contents = $("#contentsInput").val();
+
+        let id = $("#memoContents").data("id");
+
+        $.ajax({
+            type: "delete"
+            , url:"/memo/remove"
+            , data:{"id":id}
+            , success:function (response) {
+                if(response.result == "success") {
+                    location.href = "/memo/list"
+                } else {
+                    alert("삭제 실패!")
+                }
+            }
+            , error:function (){
+                alert("삭제 에러!")
+            }
+        })
+
+
+
+    })
+
+</script>

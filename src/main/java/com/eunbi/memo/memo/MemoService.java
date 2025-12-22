@@ -57,7 +57,49 @@ public class MemoService {
 
         return memoRepository.findById(id)
                 .orElse(null);
-        }
     }
+
+    public boolean updateMemo(long id, String title, String contents) {
+        Optional<Memo> optionalMemo = memoRepository.findById(id);
+
+        if(optionalMemo.isPresent()) {
+            Memo memo = optionalMemo.get();
+            memo = memo.toBuilder().title(title).contents(contents).build();
+            try {
+                memoRepository.save(memo);
+            } catch (DataAccessException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+
+    public boolean deleteMemo(long id) {
+        Optional<Memo> optionalMemo = memoRepository.findById(id);
+        if (optionalMemo.isPresent()) {
+            Memo memo = optionalMemo.get();
+
+            FileManager.removeFile(memo.getImagePath());
+
+            try {
+                memoRepository.delete(memo);
+            } catch (DataAccessException e){
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+
+}
 
 
